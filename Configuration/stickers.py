@@ -1,0 +1,3 @@
+Clippy = {
+    "Hi": "CAACAgIAAxkBAAP8aRCUrP44zdrHWiJh_JzSldOReL0AAhgOAAKE2xBKZa-k5AtzIVM2BA"
+}

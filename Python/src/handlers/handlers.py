@@ -2,6 +2,7 @@ import psutil
 from aiogram import F, Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
+from Configuration.stickers import Clippy
 
 import Python.src.keyboards.keyboards as kb
 
@@ -9,6 +10,7 @@ router = Router()
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
+    await message.answer_sticker(Clippy["Hi"])
     await message.answer("Тут есть несколько функций по мониторингу сервера:", reply_markup=kb.main)
 
 @router.message(F.text == "Использование ресурсов")
@@ -28,8 +30,11 @@ async def status(message: Message):
     )
     await message.answer(response)
 
-    if cpu_usage > 90:
+    if cpu_usage > 90 :
         await message.answer(f"⚠️ ЦП/CPU: {cpu_usage}% слишком велико.\n"
+                             f"Решение: Проверьте запущенные процессы и уберите ненужные, иначе система может работать нестабильно")
+    if ram_info.percent > 90:
+        await message.answer(f"⚠️ ОЗУ/RAM: {ram_info.percent}% слишком велико.\n"
                              f"Решение: Проверьте запущенные процессы и уберите ненужные, иначе система может работать нестабильно")
     if disk_usage.percent > 90:
         await message.answer(f"⚠️ Диск/Drive: {disk_usage.percent}% слишком велико.\n"
