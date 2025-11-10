@@ -26,9 +26,10 @@ async def status(message: Message):
         f"ЦП/CPU: <b>{cpu_usage}%</b>\n"
         #f"Температура: ({cpu_temperature} - 32 * 5/9 °C)\n"
         f"ОЗУ/RAM: <b>{ram_info.percent}%</b> ({ram_info.used // (1024 ** 2)} MB из {ram_info.total // (1024 ** 2)} MB)\n"
-        f"Диск/Drive: <b>{disk_usage.percent}%</b> ({disk_usage.used // (1024 ** 2)} MB из {disk_usage.total // (1024 ** 2)} MB)"
+        f"Диск/Drive: <b>{disk_usage.percent}%</b> ({disk_usage.used // (1024 ** 2)} MB из {disk_usage.total // (1024 ** 2)} MB)\n\n"
+        #f"<i>Ведите команду /stop_monitoring. Либо оно автоматически прекратится через 5 минут.</i>"
     )
-    await message.answer(response)
+    await message.answer(response, reply_markup=kb.monitoring)
 
     if cpu_usage > 90 :
         await message.answer(f"⚠️ ЦП/CPU: {cpu_usage}% слишком велико.\n"
@@ -39,6 +40,28 @@ async def status(message: Message):
     if disk_usage.percent > 90:
         await message.answer(f"⚠️ Диск/Drive: {disk_usage.percent}% слишком велико.\n"
                              f"Решение: Очистьте диск, иначе система может работать нестабильно")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @router.message(lambda message: message.sticker is not None)
 async def handle_sticker(message: Message):
